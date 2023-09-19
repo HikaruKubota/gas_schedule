@@ -370,29 +370,49 @@ function getTriggers(){
 }
 
 function setTrigger(){
+  console.log('setTriggers start')
   const triggers = getTriggers();
 
   deleteTriggers(triggers);
   const time = new Date();
   for(trigger of triggers){
+    console.log(trigger.schedule.hours < time.getHours(), trigger.schedule.hours, time.getHours())
+    // 現在時刻から超過してる場合、newTriggerは不要
+    if(!trigger.schedule.hours < time.getHours()){
+      continue
+    }
     time.setFullYear(trigger.schedule.date.getFullYear());
     time.setMonth(trigger.schedule.date.getMonth());
     time.setDate(trigger.schedule.date.getDate());
     time.setHours(trigger.schedule.hours);
     time.setMinutes(trigger.schedule.minutes);
+
+    console.log('newTrigger: ', trigger.taskName)
     ScriptApp.newTrigger(trigger.taskName).timeBased().at(time).create();
-    Utilities.sleep(1000)
+    Utilities.sleep(5000)
   };
+  console.log('setTriggers end')
 }
 
 function deleteTriggers(crons) {
+  console.log('deleteTriggers start')
   const triggers = ScriptApp.getProjectTriggers();
-  for(trigger of triggers){
-    for(cron of crons){
-      if(trigger.getHandlerFunction() == cron.taskName){
+  Utilities.sleep(5000)
+
+  // 重複削除
+  const targetCrons = crons.filter((element, index, self) => {
+    return self.findIndex((e) => {return e.taskName === element.taskName}) === index
+  })
+  console.log(targetCrons)
+  for(cron of targetCrons){
+    for(trigger of triggers){
+    const triggerName = trigger.getHandlerFunction()
+      if(triggerName == cron.taskName){
+        console.log('delete: ', cron.taskName)
         ScriptApp.deleteTrigger(trigger);
+        Utilities.sleep(5000)
       }
-      Utilities.sleep(1000)
     }
   }
+  console.log('deleteTriggers end')
 }
