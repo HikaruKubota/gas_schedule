@@ -244,6 +244,10 @@ const updateRoyalOrderWeeklyDeadline = (sheet, row, column) => {
   updateState(sheet, row)
 }
 
+/**
+ * 王国勲章デイリー締め切り更新
+ * ステータスはウィークリーが完了してるなら完了のままにする？
+ */
 const updateRoyalOrderDailyDeadline = (sheet, row, column) => {
   const common = commonPublicFunctions();
 
