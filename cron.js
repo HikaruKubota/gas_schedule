@@ -43,7 +43,7 @@ const noticeTimedEventsMain = () => {
   /**
    * メッセージ送信部分
    */
-  const message = 
+  const message =
 `現在開催中のイベントです！
 
 ${
@@ -109,7 +109,7 @@ const noticeDeadlinesMain = () => {
   /**
    * メッセージ送信部分
    */
-  const message = 
+  const message =
 `本日、期限の物は下記となります。
 
 ${
@@ -170,7 +170,7 @@ const updateDeadlinesMain = () => {
    */
   const classificationColumn = common.findColumnByHeader(sheet, '分類')
   const itemColumn = common.findColumnByHeader(sheet, '中項目')
-  const detailColumn = common.findColumnByHeader(sheet, '詳細')  
+  const detailColumn = common.findColumnByHeader(sheet, '詳細')
 
   const deadDetails = deadRows.map((deadRow) => {
     return {
@@ -189,7 +189,7 @@ const updateDeadlinesMain = () => {
   /**
    * メッセージ送信部分
    */
-  const message = 
+  const message =
 `スケジュールを更新します。
 下記が更新対象です。
 
@@ -283,7 +283,7 @@ const updateTheSixFlowerTrialsStatus = (sheet, item) => {
   const common = commonPublicFunctions();
   const targetItemLabel = item === '六花の試練 part1' ?
     '六花の試練 part2' :
-    item === '六花の試練 part2' ? 
+    item === '六花の試練 part2' ?
       '六花の試練 part1' : undefined
   if(!targetItemLabel) return
 
@@ -340,7 +340,7 @@ function getTriggers(){
       schedule: {
         date: common.getCurrentDate(),
         hours: time,
-        minutes: 00,
+        minutes: 0,
       }
     }
   })
@@ -351,7 +351,7 @@ function getTriggers(){
       schedule: {
         date: common.getCurrentDate(),
         hours: 3,
-        minutes: 00,
+        minutes: 0,
       }
     },
     {
@@ -359,7 +359,7 @@ function getTriggers(){
       schedule: {
         date: common.getCurrentDate(),
         hours: 5,
-        minutes: 00,
+        minutes: 0,
       }
     },
   ].concat(noticeTimedEventsTriggers);
