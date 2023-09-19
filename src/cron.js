@@ -374,23 +374,25 @@ function setTrigger(){
 
   deleteTriggers(triggers);
   const time = new Date();
-  triggers.forEach((trigger) => {
+  for(trigger of triggers){
     time.setFullYear(trigger.schedule.date.getFullYear());
     time.setMonth(trigger.schedule.date.getMonth());
     time.setDate(trigger.schedule.date.getDate());
     time.setHours(trigger.schedule.hours);
     time.setMinutes(trigger.schedule.minutes);
     ScriptApp.newTrigger(trigger.taskName).timeBased().at(time).create();
-  });
+    Utilities.sleep(1000)
+  };
 }
 
 function deleteTriggers(crons) {
   const triggers = ScriptApp.getProjectTriggers();
-  triggers.forEach(trigger => {
-    crons.forEach((cron) => {
+  for(trigger of triggers){
+    for(cron of crons){
       if(trigger.getHandlerFunction() == cron.taskName){
         ScriptApp.deleteTrigger(trigger);
       }
-    })
-  })
+      Utilities.sleep(1000)
+    }
+  }
 }
