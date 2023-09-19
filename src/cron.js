@@ -210,6 +210,7 @@ const updateDeadlines = (sheet, deadDetails, deadlineColumn) => {
   deadDetails.forEach(e => {
     if(e.item === '神獣討伐令' && e.detail === '神獣') updateDivineBastsDeadline(sheet, e.row, deadlineColumn)
     if(e.item === '王国勲章' && e.detail === 'ウィークリー') updateRoyalOrderWeeklyDeadline(sheet, e.row, deadlineColumn)
+    if(e.item === '王国勲章' && e.detail === 'デイリー') updateRoyalOrderDailyDeadline(sheet, e.row, deadlineColumn)
     if(e.item === '六花の試練 part1' || e.item === '六花の試練 part2') {
       updateTheSixFlowerTrialsDeadline(sheet, e.row, deadlineColumn)
       updateTheSixFlowerTrialsStatus(sheet, e.item)
@@ -238,6 +239,15 @@ const updateRoyalOrderWeeklyDeadline = (sheet, row, column) => {
   const common = commonPublicFunctions();
 
   const updateDeadline = common.getFirstDayOfTheNextWeek()
+  sheet.getRange(row, column).setValue(updateDeadline)
+
+  updateState(sheet, row)
+}
+
+const updateRoyalOrderDailyDeadline = (sheet, row, column) => {
+  const common = commonPublicFunctions();
+
+  const updateDeadline = common.getNextDate()
   sheet.getRange(row, column).setValue(updateDeadline)
 
   updateState(sheet, row)

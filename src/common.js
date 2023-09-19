@@ -4,6 +4,11 @@ const commonPublicFunctions = () => {
     getCurrentDate: () => {
       return new Date();
     },
+    getNextDate: () => {
+      const today = new Date()
+      const nextDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+      return nextDay;
+    },
     getNext20Date: () => {
       const today = new Date();
       if (today.getDate() > 20) {
