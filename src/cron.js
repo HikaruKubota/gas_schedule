@@ -1,5 +1,5 @@
 /**
- * 毎日8~22時に起動するTrigger
+ * 毎日8~23時に起動するTrigger
  * 開催されている時限イベントをチェックし、通知する。
  */
 const noticeTimedEventsMain = () => {
