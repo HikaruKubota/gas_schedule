@@ -65,7 +65,7 @@ const commonPublicFunctions = () => {
       return today;
     },
     sendMessageToDiscord: (message) => {
-      const WEBHOOK_URL = "https://discord.com/api/webhooks/1153659308433756192/zNVjbT1omxwdz_s4RqM1WF9VPntApncY7bdC30hYmY4mZDa5XVWhw3IlKecChP5AWDRk";
+      const WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty('discordWebHook');
 
       const payload = {
         username: 'ログレススケジュール',
