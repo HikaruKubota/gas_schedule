@@ -374,11 +374,11 @@ function setTrigger(){
   const triggers = getTriggers();
 
   deleteTriggers(triggers);
-  const time = new Date();
   for(trigger of triggers){
-    console.log(!trigger.schedule.hours < time.getHours(), trigger.schedule.hours, time.getHours())
+    const time = new Date();
+    console.log(trigger.schedule.hours < +time.getHours(), trigger.schedule.hours, time.getHours())
     // 現在時刻から超過してる場合、newTriggerは不要
-    if(!trigger.schedule.hours < time.getHours()){
+    if(+trigger.schedule.hours < +time.getHours()){
       continue
     }
     time.setFullYear(trigger.schedule.date.getFullYear());
