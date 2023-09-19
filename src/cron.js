@@ -376,7 +376,7 @@ function setTrigger(){
   deleteTriggers(triggers);
   const time = new Date();
   for(trigger of triggers){
-    console.log(trigger.schedule.hours < time.getHours(), trigger.schedule.hours, time.getHours())
+    console.log(!trigger.schedule.hours < time.getHours(), trigger.schedule.hours, time.getHours())
     // 現在時刻から超過してる場合、newTriggerは不要
     if(!trigger.schedule.hours < time.getHours()){
       continue
