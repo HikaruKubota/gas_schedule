@@ -69,11 +69,25 @@ const commonPublicFunctions = () => {
       today.setDate(today.getDate() - today.getDay() + 6);
       return today;
     },
-    sendMessageToDiscord: (message) => {
+    sendMessageToDiscordEventChannel: (message) => {
       const WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty('discordWebHook');
 
       const payload = {
-        username: 'ログレススケジュール',
+        username: '時限通知',
+        content: message,
+      };
+
+      UrlFetchApp.fetch(WEBHOOK_URL, {
+        method: "post",
+        contentType: "application/json",
+        payload: JSON.stringify(payload),
+      });
+    },
+    sendMessageToDiscordScheduleChannel: (message) => {
+      const WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty('discordWebHook2');
+
+      const payload = {
+        username: 'スケジュール',
         content: message,
       };
 

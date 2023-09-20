@@ -52,7 +52,7 @@ ${
   }, '') : ''
 }
 `
-  if(nowTimedEventsDetails.length != 0) common.sendMessageToDiscord(message)
+  if(nowTimedEventsDetails.length != 0) common.sendMessageToDiscordEventChannel(message)
 }
 
 
@@ -119,7 +119,7 @@ ${
 }
 https://docs.google.com/spreadsheets/d/1DHWZMRe7utMagIqEP7YJr3Yqe7PrFGpsA44PXprL6ik/edit#gid=0&fvid=671968663
 `
-  common.sendMessageToDiscord(message)
+  common.sendMessageToDiscordScheduleChannel(message)
 }
 
 /**
@@ -200,7 +200,7 @@ ${
 }
 https://docs.google.com/spreadsheets/d/1DHWZMRe7utMagIqEP7YJr3Yqe7PrFGpsA44PXprL6ik/edit#gid=0&fvid=671968663
 `
-  common.sendMessageToDiscord(message)
+  common.sendMessageToDiscordScheduleChannel(message)
 }
 
 /**
