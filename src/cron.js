@@ -299,13 +299,14 @@ const updateTheSixFlowerTrialsStatus = (sheet, item) => {
     '六花の試練 part2' :
     item === '六花の試練 part2' ?
       '六花の試練 part1' : undefined
+
   if(!targetItemLabel) return
 
   // 未完了にするカラムのrowを取得する。
   const itemColumn = common.findColumnByHeader(sheet, '中項目')
   const lastRow = sheet.getMaxRows();
   const targetRows = sheet.getRange(1,itemColumn,lastRow,1).getValues().map((e, i) => {
-    return e === targetItemLabel ? i + 1 : undefined
+    return e[0] == targetItemLabel ? i + 1 : undefined
   }).filter(e => {
     return e
   })
@@ -332,7 +333,7 @@ const updateState = (sheet, row) => {
   const common = commonPublicFunctions();
 
   // 更新する対象を定義
-  const targets = ['おちゃ', 'おちゃ2nd']
+  const targets = ['おちゃ', 'あんみつ']
   targets.forEach((e) => {
     const targetColumn = common.findColumnByHeader(sheet, e)
     sheet.getRange(row, targetColumn).setValue('未完了')
