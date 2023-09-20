@@ -410,16 +410,14 @@ function setTrigger(){
 }
 
 function deleteTriggers(crons) {
-  console.log('deleteTriggers start')
-  const triggers = ScriptApp.getProjectTriggers();
-  Utilities.sleep(5000)
-
   // 重複削除
   const targetCrons = crons.filter((element, index, self) => {
     return self.findIndex((e) => {return e.taskName === element.taskName}) === index
   })
   console.log(targetCrons)
   for(cron of targetCrons){
+    const triggers = ScriptApp.getProjectTriggers();
+    Utilities.sleep(5000)
     for(trigger of triggers){
     const triggerName = trigger.getHandlerFunction()
       if(triggerName == cron.taskName){
@@ -429,5 +427,4 @@ function deleteTriggers(crons) {
       }
     }
   }
-  console.log('deleteTriggers end')
 }
