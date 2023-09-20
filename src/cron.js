@@ -332,7 +332,7 @@ const updateEventDeadline = (sheet, row, column) => {
 const updateState = (sheet, row) => {
   const common = commonPublicFunctions();
 
-  // 更新する対象を定義
+  // todo: ここ忘れるから固定値辞めた方が良い。何か考える。
   const targets = ['おちゃ', 'あんみつ']
   targets.forEach((e) => {
     const targetColumn = common.findColumnByHeader(sheet, e)
