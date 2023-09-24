@@ -204,6 +204,25 @@ https://docs.google.com/spreadsheets/d/1DHWZMRe7utMagIqEP7YJr3Yqe7PrFGpsA44PXprL
 }
 
 /**
+ * 毎日2時に起動するTrigger
+ * デイリーシートのステータスを全て未完了にする
+ */
+const updateDailyStatus = () => {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('デイリー管理表');
+
+  /**
+   * 対象範囲を取得
+   */
+  const CValues = sheet.getRange('C:C').getValues();
+  const lastRow = CValues.filter(e => { return e != ''}).length;
+  // 2行目～最終行までをupdateStatusで未完了に変更する
+  for (let i = 2; i <= lastRow; i++) {
+    updateState(sheet, i)
+  }
+}
+
+
+/**
  * 更新処理呼び出し部分
  */
 const updateDeadlines = (sheet, deadDetails, deadlineColumn) => {
@@ -341,9 +360,9 @@ const updateState = (sheet, row) => {
 }
 
 
-/**
+/***************************************************
  * cron系
- */
+ ***************************************************/
 function getTriggers(){
   const common = commonPublicFunctions();
 
@@ -374,6 +393,14 @@ function getTriggers(){
       schedule: {
         date: common.getCurrentDate(),
         hours: 5,
+        minutes: 0,
+      }
+    },
+    {
+      taskName: 'updateDailyStatus',
+      schedule: {
+        date: common.getCurrentDate(),
+        hours: 2,
         minutes: 0,
       }
     },
