@@ -235,6 +235,8 @@ const updateDeadlines = (sheet, deadDetails, deadlineColumn) => {
       updateTheSixFlowerTrialsStatus(sheet, e.item)
     }
     if(e.item === '属性の試練' || e.item === 'クロノスの試練') updateAttributesDeadline(sheet, e.row, deadlineColumn)
+    if(e.item === '宝石の守護神') updatePatronOfJewelryDeadline(sheet, e.row, deadlineColumn)
+    if(e.item === '追憶のデイリークエスト') updateRecollectionDeadline(sheet, e.row, deadlineColumn)
     if(e.classification === 'イベント') updateEventDeadline(sheet, e.row, deadlineColumn)
   })
 }
@@ -291,7 +293,15 @@ const updateAttributesDeadline = (sheet, row, column) => {
 /**
  * 宝石の守護神更新
  */
+const updatePatronOfJewelryDeadline = (sheet, row, column) => {
+  const common = commonPublicFunctions();
 
+  // どの日付に更新するべきか分からないので一旦空欄にする。
+  // const updateDeadline = common.getThirdWednesdayOfTheNextMonth()
+  sheet.getRange(row, column).setValue('')
+
+  updateState(sheet, row)
+}
 
 /**
  * 六花の試練更新
@@ -338,6 +348,15 @@ const updateTheSixFlowerTrialsStatus = (sheet, item) => {
 /**
  * 追憶のデイリー試練更新
  */
+const updateRecollectionDeadline = (sheet, row, column) => {
+  const common = commonPublicFunctions();
+
+  // どの日付に更新するべきか分からないので一旦空欄にする。
+  // const updateDeadline = common.getThirdWednesdayOfTheNextMonth()
+  sheet.getRange(row, column).setValue('')
+
+  updateState(sheet, row)
+}
 
 /**
  * Event更新
