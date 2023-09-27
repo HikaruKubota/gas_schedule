@@ -352,7 +352,7 @@ const updateState = (sheet, row) => {
   const common = commonPublicFunctions();
 
   // todo: ここ忘れるから固定値辞めた方が良い。何か考える。
-  const targets = ['おちゃ', 'あんみつ', 'たっかー']
+  const targets = ['おちゃ', 'あんみつ']
   targets.forEach((e) => {
     const targetColumn = common.findColumnByHeader(sheet, e)
     sheet.getRange(row, targetColumn).setValue('未完了')
