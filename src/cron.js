@@ -118,6 +118,9 @@ ${
   }, '') : '本日、期限の物はありません。\n'
 }
 https://docs.google.com/spreadsheets/d/1DHWZMRe7utMagIqEP7YJr3Yqe7PrFGpsA44PXprL6ik/edit#gid=0&fvid=671968663
+
+正確な情報は下記ニュースを参照ください
+https://sp.mmo-logres.com/news/
 `
   common.sendMessageToDiscordScheduleChannel(message)
 }
@@ -199,6 +202,9 @@ ${
   }, '') : '更新対象はありません。\n'
 }
 https://docs.google.com/spreadsheets/d/1DHWZMRe7utMagIqEP7YJr3Yqe7PrFGpsA44PXprL6ik/edit#gid=0&fvid=671968663
+
+正確な情報は下記ニュースを参照ください
+https://sp.mmo-logres.com/news/
 `
   common.sendMessageToDiscordScheduleChannel(message)
 }
@@ -267,7 +273,6 @@ const updateRoyalOrderWeeklyDeadline = (sheet, row, column) => {
 
 /**
  * 王国勲章デイリー締め切り更新
- * ステータスはウィークリーが完了してるなら完了のままにする？
  */
 const updateRoyalOrderDailyDeadline = (sheet, row, column) => {
   const common = commonPublicFunctions();
@@ -280,18 +285,21 @@ const updateRoyalOrderDailyDeadline = (sheet, row, column) => {
 
 /**
  * 属性の試練、クロノスの試練更新
+ * todo: fix
  */
 const updateAttributesDeadline = (sheet, row, column) => {
   const common = commonPublicFunctions();
 
-  const updateDeadline = common.getThirdWednesdayOfTheNextMonth()
-  sheet.getRange(row, column).setValue(updateDeadline)
+  // memo: 20231011 なんか2週目に更新入った。この辺曖昧っぽい。空欄にする。
+  // const updateDeadline = common.getThirdWednesdayOfTheNextMonth()
+  sheet.getRange(row, column).setValue('')
 
   updateState(sheet, row)
 }
 
 /**
  * 宝石の守護神更新
+ * todo: fix
  */
 const updatePatronOfJewelryDeadline = (sheet, row, column) => {
   const common = commonPublicFunctions();
@@ -347,6 +355,7 @@ const updateTheSixFlowerTrialsStatus = (sheet, item) => {
 
 /**
  * 追憶のデイリー試練更新
+ * todo: fix
  */
 const updateRecollectionDeadline = (sheet, row, column) => {
   const common = commonPublicFunctions();
