@@ -79,15 +79,13 @@ const noticeDeadlinesMain = () => {
     if(e == '' || e == '期限') return undefined
     const targetDate = new Date(e)
     const t_yyyy = targetDate.getFullYear();
-    const t_mm = ('00' + targetDate.getMonth()+1).slice(-2);
+    const t_mm = ('00' + (targetDate.getMonth()+1)).slice(-2);
     const t_dd = ('00' + targetDate.getDate()).slice(-2);
     const c_yyyy = ck.getFullYear();
-    const c_mm = ('00' + ck.getMonth()+1).slice(-2);
+    const c_mm = ('00' + (ck.getMonth()+1)).slice(-2);
     const c_dd = ('00' + ck.getDate()).slice(-2);
     const t = "" + t_yyyy + t_mm + t_dd
     const c = "" + c_yyyy + c_mm + c_dd
-    console.log({t})
-    console.log({c})
     return +t == +c ? i + 1 : undefined
   }).filter(e => {
     return e
@@ -148,19 +146,18 @@ const updateDeadlinesMain = () => {
 
   const today = new Date()
   const ck = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1)
-  const deadRows = deadlines.map((e, i) => {
+  const deadRows = deadlines.map((e, i, array) => {
     if(e == '' || e == '期限') return undefined
     const targetDate = new Date(e)
     const t_yyyy = targetDate.getFullYear();
-    const t_mm = ('00' + targetDate.getMonth()+1).slice(-2);
+    const t_mm = ('00' + (targetDate.getMonth()+1)).slice(-2);
     const t_dd = ('00' + targetDate.getDate()).slice(-2);
     const c_yyyy = ck.getFullYear();
-    const c_mm = ('00' + ck.getMonth()+1).slice(-2);
+    const c_mm = ('00' + (ck.getMonth()+1)).slice(-2);
     const c_dd = ('00' + ck.getDate()).slice(-2);
     const t = "" + t_yyyy + t_mm + t_dd
     const c = "" + c_yyyy + c_mm + c_dd
-    console.log({t})
-    console.log({c})
+    console.log(i + 1, {t}, {c})
     return +t <= +c ? i + 1 : undefined
   }).filter(e => {
     return e
