@@ -41,18 +41,32 @@ const noticeTimedEventsMain = () => {
   })
 
   /**
-   * メッセージ送信部分
+   * 時限メッセージ送信部分
    */
   const message =
 `現在開催中のイベントです！
 
 ${
-  nowTimedEventsDetails.length != 0 ? nowTimedEventsDetails.map(e => e.item + ' - ' + e.detail).reduce((a, c) => {
+  nowTimedEventsDetails.length != 0 ? nowTimedEventsDetails.filter(e => e.item != 'クランクエスト').map(e => e.item + ' - ' + e.detail).reduce((a, c) => {
   return a + '・' + c + '\n'
   }, '') : ''
 }
 `
-  if(nowTimedEventsDetails.length != 0) common.sendMessageToDiscordEventChannel(message)
+  if(nowTimedEventsDetails.filter(e => e.item != 'クランクエスト').length != 0) common.sendMessageToDiscordEventChannel(message)
+
+  /**
+   * クライベメッセージ送信部分
+   */
+  const message2 =
+`クライベ通知です
+
+${
+  nowTimedEventsDetails.length != 0 ? nowTimedEventsDetails.filter(e => e.item == 'クランクエスト').map(e => e.item + ' - ' + e.detail).reduce((a, c) => {
+  return a + '・' + c + '\n'
+  }, '') : ''
+}
+`
+  if(nowTimedEventsDetails.filter(e => e.item == 'クランクエスト').length != 0) common.sendMessageToDiscordClanEventChannel(message2)
 }
 
 
@@ -115,12 +129,11 @@ ${
   return a + '・' + c + '\n'
   }, '') : '本日、期限の物はありません。\n'
 }
-https://docs.google.com/spreadsheets/d/1DHWZMRe7utMagIqEP7YJr3Yqe7PrFGpsA44PXprL6ik/edit#gid=0&fvid=671968663
 
 正確な情報は下記ニュースを参照ください
 https://sp.mmo-logres.com/news/
 `
-  common.sendMessageToDiscordScheduleChannel(message)
+  if(deadDetails.length != 0) common.sendMessageToDiscordScheduleChannel(message)
 }
 
 /**
@@ -198,12 +211,11 @@ ${
   return a + '・' + c + '\n'
   }, '') : '更新対象はありません。\n'
 }
-https://docs.google.com/spreadsheets/d/1DHWZMRe7utMagIqEP7YJr3Yqe7PrFGpsA44PXprL6ik/edit#gid=0&fvid=671968663
 
 正確な情報は下記ニュースを参照ください
 https://sp.mmo-logres.com/news/
 `
-  common.sendMessageToDiscordScheduleChannel(message)
+  if(deadDetails.length != 0) common.sendMessageToDiscordScheduleChannel(message)
 }
 
 /**

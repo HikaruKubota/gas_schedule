@@ -83,6 +83,20 @@ const commonPublicFunctions = () => {
         payload: JSON.stringify(payload),
       });
     },
+    sendMessageToDiscordClanEventChannel: (message) => {
+      const WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty('discordWebHook3');
+
+      const payload = {
+        username: 'クライベ通知',
+        content: message,
+      };
+
+      UrlFetchApp.fetch(WEBHOOK_URL, {
+        method: "post",
+        contentType: "application/json",
+        payload: JSON.stringify(payload),
+      });
+    },
     sendMessageToDiscordScheduleChannel: (message) => {
       const WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty('discordWebHook2');
 
