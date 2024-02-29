@@ -410,15 +410,10 @@ const updateMaintenanceDate = () => {
   const maintenanceDate = common.getMaintenanceDate()
 
   // 対象範囲を取得
-  const maintenanceDateCol = sheet.getRange("A:A").getValues();
-  const lastRow = maintenanceDateCol.filter(e => { return e != ''}).length;
+  const maintenanceDateCol = sheet.getRange("A1").getValues();
   // 取得したメンテ日が既に記録されていなければ記録
-  for (let i = 0; i <= lastRow; i++) {
-    if(maintenanceDate.getTime() == new Date(maintenanceDateCol[i]).getTime()){
-      break;
-    }else{
-      sheet.getRange(lastRow+1, 1).setValue(maintenanceDate);
-    }
+  if(maintenanceDate.getTime() != Date(maintenanceDateCol).getTime()){
+    sheet.getRange(1, 1).setValue(maintenanceDate);
   }
 }
 
