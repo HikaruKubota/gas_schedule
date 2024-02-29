@@ -72,7 +72,7 @@ const commonPublicFunctions = () => {
 
     // 最新のメンテナンス日を取得
     getMaintenanceDate: () => {
-      const response = UrlFetchApp.fetch("https://asia-northeast1-tonal-asset-415520.cloudfunctions.net/logres_scraping");
+      const response = UrlFetchApp.fetch(PropertiesService.getScriptProperties().getProperty('getMaintenanceDateAPI'));
       const jsonData = JSON.parse(response);
       let maintenanceInfo = [new Date(jsonData.notice_date.split(/[年月日]/)), new Date(jsonData.maintenance_date)];
       // 来年のメンテの告知をしている場合、告知年に+1してメンテの年を求める。(メンテ日に年の記載がないためこのような実装が必要)
