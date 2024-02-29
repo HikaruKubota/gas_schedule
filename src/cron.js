@@ -396,6 +396,31 @@ const updateState = (sheet, row) => {
   })
 }
 
+/**
+ * 毎日2時に起動するTrigger
+ * 最新のメンテナンス日を取得し、シートに記録する。
+ */
+const updateMaintenanceDate = () => {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('メンテ日記録表');
+  const common = commonPublicFunctions();
+
+  /**
+   * メンテ日を取得
+   */
+  const maintenanceDate = common.getMaintenanceDate()
+
+  // 対象範囲を取得
+  const maintenanceDateCol = sheet.getRange("A:A").getValues();
+  const lastRow = maintenanceDateCol.filter(e => { return e != ''}).length;
+  // 取得したメンテ日が既に記録されていなければ記録
+  for (let i = 0; i <= lastRow; i++) {
+    if(maintenanceDate.getTime() == new Date(maintenanceDateCol[i]).getTime()){
+      break;
+    }else{
+      sheet.getRange(lastRow+1, 1).setValue(maintenanceDate);
+    }
+  }
+}
 
 /***************************************************
  * cron系
@@ -441,6 +466,14 @@ function getTriggers(){
         minutes: 0,
       }
     },
+    {
+      taskName: 'updateMaintenanceDate',
+      schedule: {
+        date: common.getCurrentDate(),
+        hours: 2,
+        minutes: 0,
+      }
+    }
   ].concat(noticeTimedEventsTriggers);
 
   console.log(triggers)

@@ -69,6 +69,21 @@ const commonPublicFunctions = () => {
       today.setDate(today.getDate() - today.getDay() + 6);
       return today;
     },
+
+    // 最新のメンテナンス日を取得
+    getMaintenanceDate: () => {
+      const response = UrlFetchApp.fetch("https://asia-northeast1-tonal-asset-415520.cloudfunctions.net/logres_scraping");
+      const jsonData = JSON.parse(response);
+      let maintenanceInfo = [new Date(jsonData.notice_date.split(/[年月日]/)), new Date(jsonData.maintenance_date)];
+      // 来年のメンテの告知をしている場合、告知年に+1してメンテの年を求める。(メンテ日に年の記載がないためこのような実装が必要)
+      if(maintenanceInfo[0].getMonth() <= maintenanceInfo[1].getMonth()){
+        maintenanceDate = new Date(maintenanceInfo[0].getFullYear(), maintenanceInfo[1].getMonth(), maintenanceInfo[1].getDate());
+      }else{
+        maintenanceDate = new Date(maintenanceInfo[0].getFullYear() + 1, maintenanceInfo[1].getMonth(), maintenanceInfo[1].getDate());
+      }
+      return maintenanceDate
+    },
+
     sendMessageToDiscordEventChannel: (message) => {
       const WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty('discordWebHook');
 
