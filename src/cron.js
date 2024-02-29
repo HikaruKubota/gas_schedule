@@ -470,7 +470,7 @@ function getTriggers(){
       taskName: 'updateMaintenanceDate',
       schedule: {
         date: common.getCurrentDate(),
-        hours: 2,
+        hours: 4,
         minutes: 0,
       }
     }
