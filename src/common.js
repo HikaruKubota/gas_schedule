@@ -73,13 +73,13 @@ const commonPublicFunctions = () => {
     // 最新のメンテナンス日を取得
     getMaintenanceDate: () => {
       const response = UrlFetchApp.fetch(PropertiesService.getScriptProperties().getProperty('fetchMaintenanceDate'));
-      const jsonData = JSON.parse(response);
-      const maintenanceInfo = [Date(jsonData.notice_date.split(/[年月日]/)), Date(jsonData.maintenance_date)];
-      // 来年のメンテの告知をしている場合、告知年に+1してメンテの年を求める。(メンテ日に年の記載がないためこのような実装が必要)
-      if(maintenanceInfo[0].getMonth() <= maintenanceInfo[1].getMonth()){
-        return Date(maintenanceInfo[0].getFullYear(), maintenanceInfo[1].getMonth(), maintenanceInfo[1].getDate());
+      const maintenanceDate = new Date(JSON.parse(response).maintenance_date);
+      const today = new Date();
+      // 来年のメンテの場合、今年の年数に+1してメンテの年を求める。(メンテ日に年の記載がないためこのような実装が必要)
+      if(today.getMonth() == 12 && maintenanceDate == 1){
+        return new Date(today.getFullYear()+1, maintenanceDate.getMonth(), maintenanceDate.getDate());
       }else{
-        return Date(maintenanceInfo[0].getFullYear() + 1, maintenanceInfo[1].getMonth(), maintenanceInfo[1].getDate());
+        return new Date(today.getFullYear(), maintenanceDate.getMonth(), maintenanceDate.getDate());
       }
     },
 

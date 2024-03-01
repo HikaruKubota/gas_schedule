@@ -397,7 +397,7 @@ const updateState = (sheet, row) => {
 }
 
 /**
- * 毎日2時に起動するTrigger
+ * 毎日4時に起動するTrigger
  * 最新のメンテナンス日を取得し、シートに記録する。
  */
 const updateMaintenanceDate = () => {
@@ -409,11 +409,11 @@ const updateMaintenanceDate = () => {
    */
   const maintenanceDate = common.getMaintenanceDate()
 
-  // 対象範囲を取得
-  const maintenanceDateCol = sheet.getRange("A1").getValues();
+  // 対象範囲を取得([0][0]にすることで時間だけ取得)
+  const maintenanceDateCol = sheet.getRange("A2").getValues()[0][0];
   // 取得したメンテ日が既に記録されていなければ記録
-  if(maintenanceDate.getTime() != Date(maintenanceDateCol).getTime()){
-    sheet.getRange(1, 1).setValue(maintenanceDate);
+  if (!maintenanceDateCol || maintenanceDateCol.getDate() != maintenanceDate.getDate()) {
+    sheet.getRange(2, 1).setValue(maintenanceDate);
   }
 }
 
