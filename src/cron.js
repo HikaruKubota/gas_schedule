@@ -403,18 +403,13 @@ const updateState = (sheet, row) => {
 const updateMaintenanceDate = () => {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('メンテ日記録表');
   const common = commonPublicFunctions();
-
+  
   /**
    * メンテ日を取得
    */
   const maintenanceDate = common.getMaintenanceDate()
-
-  // 対象範囲を取得([0][0]にすることで時間だけ取得)
-  const maintenanceDateCol = sheet.getRange("A2").getValues()[0][0];
-  // 取得したメンテ日が既に記録されていなければ記録
-  if (!maintenanceDateCol || maintenanceDateCol.getDate() != maintenanceDate.getDate()) {
-    sheet.getRange(2, 1).setValue(maintenanceDate);
-  }
+  // 取得したメンテ日を記録
+  sheet.getRange(2, 1).setValue(maintenanceDate);
 }
 
 /***************************************************
