@@ -69,6 +69,20 @@ const commonPublicFunctions = () => {
       today.setDate(today.getDate() - today.getDay() + 6);
       return today;
     },
+
+    // 最新のメンテナンス日を取得
+    getMaintenanceDate: () => {
+      const response = UrlFetchApp.fetch(PropertiesService.getScriptProperties().getProperty('fetchMaintenanceDate'));
+      const maintenanceDate = new Date(JSON.parse(response).maintenance_date);
+      const today = new Date();
+      // 来年のメンテの場合、今年の年数に+1してメンテの年を求める。(メンテ日に年の記載がないためこのような実装が必要)
+      if(today.getMonth() === 12 && maintenanceDate === 1){
+        return new Date(today.getFullYear()+1, maintenanceDate.getMonth(), maintenanceDate.getDate());
+      }else{
+        return new Date(today.getFullYear(), maintenanceDate.getMonth(), maintenanceDate.getDate());
+      }
+    },
+
     sendMessageToDiscordEventChannel: (message) => {
       const WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty('discordWebHook');
 
