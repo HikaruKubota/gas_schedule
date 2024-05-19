@@ -23,8 +23,7 @@ const noticeTimedEventsMain = () => {
     const targetHours = e[0].split('/').map(ee => ee.split(':')[0])
     console.log(targetHours)
     const targetHour = targetHours.find(ee => ee == nowHours)
-    const result = today === maintenanceDate && targetHour === '19' ? null : targetHour;
-    return result ? i + 1 : undefined
+    return today.getDate() === maintenanceDate.getDate() && targetHour === '19' ? undefined : i + 1
   }).filter(e => {
     return e
   })
