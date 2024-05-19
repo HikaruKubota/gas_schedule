@@ -76,7 +76,7 @@ const commonPublicFunctions = () => {
       const maintenanceDate = new Date(JSON.parse(response).maintenance_date);
       const today = new Date();
       // 来年のメンテの場合、今年の年数に+1してメンテの年を求める。(メンテ日に年の記載がないためこのような実装が必要)
-      if(today.getMonth() === 12 && maintenanceDate.getMontch() === 1){
+      if(today.getMonth() === 12 && maintenanceDate.getMonth() === 1){
         return new Date(today.getFullYear()+1, maintenanceDate.getMonth(), maintenanceDate.getDate());
       }else{
         return new Date(today.getFullYear(), maintenanceDate.getMonth(), maintenanceDate.getDate());
