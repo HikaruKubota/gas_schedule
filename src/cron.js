@@ -18,12 +18,13 @@ const noticeTimedEventsMain = () => {
   const maintenanceDate = new Date(SpreadsheetApp.getActiveSpreadsheet().getSheetByName('メンテ日記録表').getRange("A2").getValue());
 
   const nowTimedEventsRows = timedEvents.map((e, i) => {
-    if(e == '' || e == '開催時間' || e == '常時') return undefined
+    const isMaintenanceDay19h = today.getDate() === maintenanceDate.getDate() && nowHours === '19';
+    if(e == '' || e == '開催時間' || e == '常時' || isMaintenanceDay19h) return undefined
     // sample: e = [8:00～8:59 / 12:00～12:59 / 20:00～20:59 / 24:00～24:59]
     const targetHours = e[0].split('/').map(ee => ee.split(':')[0])
     console.log(targetHours)
-    const targetHour = targetHours.find(ee => ee == nowHours)
-    return today.getDate() === maintenanceDate.getDate() && targetHour === '19' ? undefined : i + 1
+    const result = targetHours.find(ee => ee == nowHours)
+    return result ? i + 1 : undefined
   }).filter(e => {
     return e
   })
